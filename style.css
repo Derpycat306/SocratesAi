@@ -1,0 +1,176 @@
+/* From Uiverse.io by ryota1231 */ 
+.animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 36px;
+  border: 4px solid;
+  border-color: transparent;
+  font-size: 16px;
+  border-radius: 100px;
+  font-weight: 600;
+  color: #1f387e;
+  box-shadow: 0 0 0 2px #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button svg {
+  position: absolute;
+  width: 24px;
+  fill: #1f387e;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 {
+  right: 16px;
+}
+
+.animated-button .arr-2 {
+  left: -25%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #e5e4c5;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: #212121;
+  border-radius: 12px;
+}
+
+.animated-button:hover .arr-1 {
+  right: -25%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 16px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(12px);
+}
+
+.animated-button:hover svg {
+  fill: #1f387e;
+}
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px greenyellow;
+}
+
+.animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+}
+
+/* Ancient Button Styling */
+.btn-ancient {
+    background-color: #c2a371; /* Sandy/Stone color */
+    color: #2c2416;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    border: 2px solid #8e7345;
+    border-radius: 0; /* Sharp edges look more like stone tablets */
+    padding: 0 25px;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 0px #5d4a2a;
+}
+
+.btn-ancient:hover {
+    background-color: #d4b98a;
+    color: #000;
+    box-shadow: 1px 1px 0px #5d4a2a;
+    transform: translateY(1px);
+}
+
+/* Make sure the chat messages take up the full available height */
+
+/* Apply the gradient to the whole page */
+body {
+    background: linear-gradient(rgba(242, 235, 214, 0.9), rgba(212, 185, 138, 0.8)), 
+                url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+    background-color: #f2ebd6; /* Fallback color */
+    background-attachment: fixed; /* Keeps the texture still while you scroll */
+}
+
+/* Make the sidebar and input containers transparent */
+.bg-white {
+    background-color: transparent !important;
+}
+
+
+.bg-brown {
+  background-color: #8a714c /* dark brown */
+}
+
+
+.bg-light {
+    background-color: rgba(0, 0, 0, 0.05) !important; /* Slight tint for header */
+}
+
+/* Adjust the messages area */
+#messages {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 40px !important;
+    background: transparent !important; /* Let the body background show through */
+}
+
+/* Improve text readability against the texture */
+h1, p, .text-muted {
+    color: #2c2416 !important;
+}
+
+/* Optional: Add a subtle border to separate the input area */
+.border-top {
+    border-top: 1px solid rgba(142, 115, 69, 0.3) !important;
+}
+
+#messages {
+    /* Use this direct link for testing */
+    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'), 
+                      linear-gradient(rgba(98, 85, 46, 0.9), rgba(212, 185, 138, 0.9));
+    
+    /* If you want the specific Freepik-style look, 
+       ensure the URL ends in .jpg or .png */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 40px !important;
+}
+
+#h1 {
+    color: #5b451f;
+}
+    
+#chat-history {
+    color: #2c2416;
+}

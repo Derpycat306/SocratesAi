@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dialogue with Socrates</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonts stylesheet -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+    rel="stylesheet">
+    
+    <!-- Personal stylesheet for custom styles-->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="d-flex flex-column vh-100">
+
+    <header class="text-center py-3 border-bottom bg-light">
+        <h1 id="h1"class="mb-1" style="font-family: 'Cinzel', serif;">Dialogue with Socrates</h1>
+        <p class="text-muted mb-0" style="font-family: 'Cinzel', serif;">An AI that answers only with questions</p>
+    </header>
+
+    <div id="chat-history" class="container-fluid flex-grow-1 overflow-hidden">
+        <div class="row h-100">
+            <div class="col-md-3 border-end p-3 bg-white d-none d-md-flex flex-column">
+                <button class="btn-ancient btn-ancient-sidebar w-100 d-flex align-items-center justify-content-between">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                    </svg>
+                    <span class="text mx-2">N E W C H A T</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                    </svg>
+                </button>
+
+                <p style="margin-top: 40px; border-bottom: 1px;"> History</p>
+                <ul class="mt-4 list-unstyled flex-grow-1" id="chat-history"></ul>
+            </div>
+
+            <main class="col-md-9 d-flex flex-column p-0 h-100">
+                <div id="messages" class="flex-grow-1 overflow-auto">
+                    </div>
+
+                <div class="p-3 border-top bg-white">
+                    <div class="input-group">
+                        <input
+                            type="text"
+                            id="user-input"
+                            class="form-control bg-brown text-light border-secondary p-3"
+                            placeholder="State your belief..."
+                            autocomplete="off"    
+                        />
+                        <button class="btn btn-ancient" id="send-btn">SEND</button>
+                    </div>
+                </div>
+             </main>
+        </div>
+    </div>
+ 
+    <script src="ai.js"></script>
+    <script type=module src="main.js"></script>
+</body>
+</html>
