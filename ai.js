@@ -61,9 +61,13 @@ export async function askAI(chatHistory, newPrompt) {
     const data = await res.json();
 
     // extract text from ai response
-    const aiText =
+    const responseText =
         data?.candidates?.[0]?.content?.parts?.[0]?.text ??
         "No response from AI.";
 
-    return aiText;
+    if(chatHistory){
+        chatHistory.push(newPrompt, responseText)
+    }
+
+    return responseText;
 }

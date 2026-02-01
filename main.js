@@ -1,13 +1,14 @@
-import { History, Chat} from './history.js'
+import { History} from './history.js'
 import { askAI } from './ai.js';
 
 const textInput = document.getElementById("user-input");
-const sendInput = document.getElementById("send-btn");
+const sendButton = document.getElementById("send-btn");
 const messagesDisplay = document.getElementById("messages");
-
+const newChatButton = document.getElementById("newchat-btn");
+const chatList = document.getElementById("chat-list");
 // Load existing data or start a new chat
 History.load();
-let currentChat = History.chats.length > 0 ? History.chats[0] : History.newChat("First Dialogue");
+let currentChat = null
 
 // Update the screen
 function updateUI() {
@@ -22,55 +23,79 @@ function updateUI() {
     messagesDisplay.scrollTop = messagesDisplay.scrollHeight;
 }
 
-sendBtn.addEventListener("click", async () => {
-    const text = textInput.value.trim();
-    if (!text) return;
+function updateChats(){
+        let html = [];
+        History.chats.forEach((chat)=>{
+            let name = chat.name;
+            console.log(name);
+            html.push(`<li>${name}</li>`);
+        })
+        chatList.innerHTML = html.join("");
+}
 
-    console.log("Asking Socrates...");
-    
-    try {
-        // Corrected order: (HistoryArray, NewText)
-        const aiResponse = await askAI(currentChat.list, text);
-        
-        const newTurn = new Turn(text, aiResponse);
-        currentChat.add(newTurn);
+chatList.addEventListener('click', event => {
+    const item = event.target.closest('li');
+    if(!item || !item.contains(li))return;
 
-        History.save();
-        textInput.value = "";
-        updateUI();
-    } catch (error) {
-        console.error("Failed to get response:", error);
-    }
 });
+
+// sendButton.addEventListener("click", async () => {
+//     const text = textInput.value.trim();
+//     if (!text) return;
+
+//     console.log("Asking Socrates...");
+    
+//     try {
+//         // Corrected order: (HistoryArray, NewText)
+//         const aiResponse = await askAI(currentChat.list, text);
+        
+//         const newTurn = new Turn(text, aiResponse);
+//         currentChat.add(newTurn);
+
+//         History.save();
+//         textInput.value = "";
+//         updateUI();
+//     } catch (error) {
+//         console.error("Failed to get response:", error);
+//     }
+// });
 
 // Run UI update on load
-updateUI();
 
 // Handle click
-sendInput.addEventListener("click", async () => {
-    const text = textInput.value.trim();
-    if (!text) return;
+// sendButton.addEventListener("click", async () => {
+//     const text = textInput.value.trim();
+//     if (!text) return;
 
-    console.log("Asking Socrates...");
+//     console.log("Asking Socrates...");
     
-    // Get the AI response (using async if askAI is a network call)
-    //const aiResponse = await askAI(text, currentChat);
-    const aiResponse = await askAI(currentChat.list, text);
+//     // Get the AI response (using async if askAI is a network call)
+//     //const aiResponse = await askAI(text, currentChat);
+//     const aiResponse = await askAI(currentChat.list, text);
     
-    // Create a new Turn and add it to our currentChat
-    const newTurn = new Turn(text, aiResponse);
-    currentChat.add(newTurn);
+//     // Create a new Turn and add it to our currentChat
+//     const newTurn = new Turn(text, aiResponse);
+//     currentChat.add(newTurn);
 
-    // Save the whole History to LocalStorage
-    History.save();
+//     // Save the whole History to LocalStorage
+//     History.save();
 
-    // Clear input and refresh the screen
-    textInput.value = "";
-    updateUI();
-});
+//     // Clear input and refresh the screen
+//     textInput.value = "";
+//     updateUI();
+// });
 
 // Initial render in case there's loaded history
-updateUI();
+
+newChatButton.addEventListener("click", () => {
+    if(!History.newChat("New Chat")){
+        for(let i = 1; i < 999; i++){
+            let string = `New Chat (${i})`;
+            if(History.newChat(string))break;
+        }   
+    }
+    updateChats();
+});
 
 async function ask(){
     console.log("asking new prompt");
@@ -79,4 +104,4 @@ async function ask(){
     console.log(response); 
 }
 
-sendInput.addEventListener("click", ask);
+sendButton.addEventListener("click", ask);

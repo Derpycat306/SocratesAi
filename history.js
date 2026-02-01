@@ -5,15 +5,16 @@ export class Turn{
     }
 }
 
-export class Chat{
+class Chat{
     constructor(name){
         this.list = [];
         this.count = 0;
         this.name = name;
     }
 
-    add(turn){
-        this.list.push(turn);
+    add(prompt, response){
+        let t = new Turn(prompt, response);
+        this.list.push(t);
         this.count++;
     }
 
@@ -24,7 +25,6 @@ export class Chat{
 
 export class History{
     static chats = [];
-    static size = 0;
 
     // saves history to file
     static save(){
@@ -36,6 +36,7 @@ export class History{
 
     // loads history from file
     static load(){
+        return
         const raw = localStorage.getItem("chatHistory");
         if(!raw)return;
 
@@ -66,21 +67,20 @@ export class History{
             return null;
         }
 
-        return chats[History.findIndex(name)];
+        return History.chats[History.findIndex(name)];
     }
 
     // defines a new chat and adds it to the list
     static newChat(name){
         if(History.contains(name)){
             console.log(`chat "${name}" not added, chat of same name exists`);
-            return null;
+            return false;
         }
         let c = new Chat(name);
         History.chats.push(c);
-        History.size++;
         History.save();
         console.log(`chat "${name}" successfully added.`);
-        return c;
+        return true;
     }
 
     // removes a chat of given name
@@ -98,5 +98,15 @@ export class History{
 
         chat.rename(newName);
         return true;
+    }
+
+    static toHTML(){
+        let html = [];
+        History.chats.forEach((chat)=>{
+            let name = chat.name;
+            console.log(name);
+            html.push(`<li>${name}</li>`);
+        })
+        return html.join("");
     }
 }

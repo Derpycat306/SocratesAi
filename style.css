@@ -111,11 +111,10 @@
 
 /* Apply the gradient to the whole page */
 body {
-    /*background: linear-gradient(rgba(226, 206, 186, 0.9), rgba(201, 145, 73, 0.8)), 
+    background: linear-gradient(rgba(226, 206, 186, 0.9), rgba(201, 145, 73, 0.8)), 
                 url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-                */
-    background-image: url("./assets/ancientbackground.png");
-
+                
+    
     background-color: #f2ebd6; /* Fallback color */
     background-attachment: fixed; /* Keeps the texture still while you scroll */
 }
