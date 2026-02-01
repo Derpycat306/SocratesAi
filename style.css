@@ -1,4 +1,24 @@
-/* From Uiverse.io by ryota1231 */ 
+.main-header {
+  position: relative;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+.main-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 30px;
+
+  background-image: url("divider.png");
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: auto 100%;
+}
+
 .animated-button {
   position: relative;
   display: flex;
@@ -88,7 +108,7 @@
 
 /* Ancient Button Styling */
 .btn-ancient {
-    background-color: #c2a371; /* Sandy/Stone color */
+    background-color: #e8c386; /* Sandy/Stone color */
     color: #2c2416;
     font-family: 'Cinzel', serif;
     font-weight: bold;
@@ -147,11 +167,11 @@ h1, p, .text-muted {
 
 /* Style for the input in its normal state */
 #user-input {
-    background-color:  #8e7345  !important; /* Deep charcoal/black */
+    background-color:  #a98951  !important; /* Deep charcoal/black */
     color: #f2ebd6 !important;           /* Parchment-colored text */
-    border: 1px solid #8e7345 !important; /* Bronze/Stone border */
+    border: 2px solid #534121 !important; /* Bronze/Stone border */
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
 }
 
 /* Style for when you click/type (The Focus State) */
@@ -301,3 +321,18 @@ body::before {
   animation: l1 1s steps(4) infinite;
 }
 @keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
+
+
+.ancient-border{
+  position: relative;
+  border-right: 4px double #d6c08a;      /* lighter gold */
+  box-shadow: inset -3px 0 6px rgba(0,0,0,0.08);
+
+}
+@supports ((mask: linear-gradient(#000, #000)) or (-webkit-mask: linear-gradient(#000, #000))) {
+  .ancient-border{
+    border-right: none;
+    overflow: visible;
+  }
+
+}

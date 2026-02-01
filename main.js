@@ -14,6 +14,7 @@ let currentChat = null;
 
 // ─── Update the message display ─────────────────────────────────────
 
+
 function updateUI() {
     if (!currentChat || !currentChat.list) {
         if (txtbox) {
@@ -27,16 +28,32 @@ function updateUI() {
     // Build the turn HTML
     const turns = currentChat.list.map(turn => `
         <div class="mb-3">
-            <div id="user-chat">
-                <p class="fw-bold mb-0">You: ${turn.prompt}</p>
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 40px; height: 40px; flex-shrink: 0;"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+                <div id="user-chat">
+                    <p class="fw-bold mb-0">You: ${turn.prompt}</p>
+                </div>
             </div>
-            <div id="socrates-chat">
-                <p class="text-muted fw-bold italic mb-0">Socrates: ${turn.response}</p></p>
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <img
+                    src="https://www.yeongnam.com/mnt/file/202201/2022011301000401200016091.jpg"
+                    style="
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        border: 1px solid black;
+                        flex-shrink: 0;"
+                    alt="Socrates"
+                >
+                <div id="socrates-chat">
+                    <p class="text-muted fw-bold italic mb-0">Socrates: ${turn.response}</p>
+                </div>
             </div>
         </div>
     `).join('');
-    // Render into the .txtbox div, preserving the sticky <img>
 
+    // Render into the .txtbox div, preserving the sticky <img>
     if (txtbox) {
         txtbox.innerHTML = turns;
     } else {
@@ -210,7 +227,14 @@ sendButton.addEventListener("click", async () => {
     console.log("Asking Socrates...");
     textInput.value = "";
     txtbox.innerHTML += 
-    `<div id="user-chat"><p class="fw-bold mb-0">You: ${text}</p></div><div id="socrates-chat"><div class="loader"></div></div>`;
+    `<div style="display: flex; align-items: flex-start; gap: 10px;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 40px; height: 40px; flex-shrink: 0;"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+        <div id="user-chat"><p class="fw-bold mb-0">You: ${text}</p></div>
+    </div>
+    <div style="display: flex; align-items: flex-start; gap: 10px;">
+        <img src="https://www.yeongnam.com/mnt/file/202201/2022011301000401200016091.jpg" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid black; flex-shrink: 0;" alt="Socrates">
+        <div id="socrates-chat"><div class="loader"></div></div>
+    </div>`;
 
     // gets response from socrates
     try {
