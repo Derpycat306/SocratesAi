@@ -16,12 +16,12 @@
 
     <header class="text-center py-3 border-bottom bg-light">
         <h1 id="h1"class="mb-1" style="font-family: 'Cinzel', serif;">Dialogue with Socrates</h1>
-        <p class="text-muted mb-0" style="font-family: 'Cinzel', serif;">An AI that answers only with questions</p>
+        <!-- <p class="text-muted mb-0" style="font-family: 'Cinzel', serif;">An AI that answers only with questions</p> -->
     </header>
 
     <div id="chat-history" class="container-fluid flex-grow-1 overflow-hidden">
         <div class="row h-100">
-            <div class="col-md-3 border-end p-3 bg-white d-none d-md-flex flex-column">
+            <div class="col-md-3 p-3 bg-white d-none d-md-flex flex-column ancient-border">
                 <button class="btn-ancient btn-ancient-sidebar w-100 d-flex align-items-center justify-content-between" id="newchat-btn" style="margin-top: 20px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
@@ -53,7 +53,9 @@
                             left: 10px;
                             z-index: 5;
                             border-radius: 50%;
-                            object-fit: cover;"
+                            object-fit: cover;
+                            border: 1px solid black;"
+                            
                         alt="Image of Socrates"
                     >
                     
@@ -81,10 +83,12 @@
     </div>
 
     
-    <!-- Right-click context menu for sidebar chats -->
+    <!-- Right-click context menu for sidebar chats 
     < id="context-menu" style="display:none; position:fixed; z-index:1000;">
         <uclass="context-menu-list" id="rename-button">
     /li
+
+-->
 
  
     <script type=module src="main.js"></script>

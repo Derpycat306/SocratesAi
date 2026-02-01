@@ -37,7 +37,7 @@ Final Note: Do not try to provide any clear answer. instead, prompt for more def
 // Backend endpoint for AI
 app.post("/ask-ai", async (req, res) => {
   try {
-    let { contents} = req.body;
+    let {contents} = req.body;
 
     if (!Array.isArray(contents)) contents = [];
     

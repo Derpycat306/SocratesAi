@@ -74,13 +74,13 @@ export class History{
     static newChat(name){
         if(History.contains(name)){
             console.log(`chat "${name}" not added, chat of same name exists`);
-            return false;
+            return null;
         }
         let c = new Chat(name);
         History.chats.push(c);
         History.save();
         console.log(`chat "${name}" successfully added.`);
-        return true;
+        return c;
     }
 
     // removes a chat of given name

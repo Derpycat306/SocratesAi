@@ -18,7 +18,7 @@ export async function askAI(chatHistory, newPrompt) {
     const contents = [];
 
     // add previous chat logs
-    if(chatHistory){
+    if(chatHistory && chatHistory.list){
         for (const turn of chatHistory.list) {
             if (turn.prompt) {
             contents.push({
@@ -56,6 +56,7 @@ export async function askAI(chatHistory, newPrompt) {
     if (!res.ok) {
         const errText = await res.text();
         throw new Error("AI request failed: " + errText);
+        return null;
     }
 
     const data = await res.json();

@@ -180,6 +180,7 @@ h1, p, .text-muted {
     border: 2px solid #8e7345;
     border-radius: 0; /* Sharp edges look more like stone tablets */
     padding: 0 25px;
+    padding-top: 5px;
     transition: all 0.3s ease;
     box-shadow: 2px 2px 0px #5d4a2a;
     height: 5vh;
@@ -214,19 +215,20 @@ html, body {
 
 body {
   background-image:
-      linear-gradient(
-        rgba(0,0,0,0),
-        rgba(0,0,0,0)
-      ),
-      url("https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?cs=srgb&dl=pexels-pixabay-235985.jpg&fm=jpg");
+    linear-gradient(
+      rgba(255, 244, 214, 0.35),  /* light parchment tint */
+      rgba(255, 244, 214, 0.35)
+    ),
+    url("https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?cs=srgb&dl=pexels-pixabay-235985.jpg&fm=jpg");
 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
 
-  color: #f2ebd6; /* parchment text color */
+  color: #f2ebd6;
 }
+
 body::before {
   content: "";
   position: fixed;
@@ -240,20 +242,62 @@ body::before {
 }
 
 
+/* deleting history chat */
+.chat-item {
+  position: relative;
+  padding-right: 40px;
+}
+
+.delete-chat {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #2c2416;
+  font-size: 18px;
+  cursor: pointer;
+  display: none;
+}
+
+.chat-item:hover .delete-chat {
+  display: block;
+}
+
+.delete-chat:hover {
+  color: darkred;
+}
 
 .list-unstyled li{
   transition: background-color .15s ease, border-color .15s ease;
 }
 
-
-.list-unstyled li .dots{
-  
-}
-
 #rename-button{
   border: 1px solid #8e7345 !important
-  
+}
+
+#socrates-chat {
+ background-color: rgb(190, 171, 111); 
+  color: #1a150c !important
+}
+
+#user-chat {
+ background-color: #d2c498;
+}
+
+#socrates-chat, #user-chat{
+  border: 1px solid #6b5735; border-radius: 6px; padding: 10px 14px; margin-top: 6px; font-family: 'Cormorant Garamond', sans-serif; font-size: 1.2em;
 }
 
 
 
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 60px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side,#8e7345 90%,#0000) 0/calc(100%/3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+}
+@keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
