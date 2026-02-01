@@ -107,32 +107,15 @@
     transform: translateY(1px);
 }
 
-/* Make sure the chat messages take up the full available height */
-
-/* Apply the gradient to the whole page */
-body {
-    background: linear-gradient(rgba(226, 206, 186, 0.9), rgba(201, 145, 73, 0.8)), 
-                url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-                
-    
-    background-color: #f2ebd6; /* Fallback color */
-    background-attachment: fixed; /* Keeps the texture still while you scroll */
-}
-
 /* Make the sidebar and input containers transparent */
 .bg-white {
     background-color: transparent !important;
 }
 
-
-.bg-brown {
-  background-color: #8a714c /* dark brown */
-}
-
-
 .bg-light {
     background-color: rgba(0, 0, 0, 0.05) !important; /* Slight tint for header */
 }
+
 
 /* Adjust the messages area */
 #messages {
@@ -153,23 +136,6 @@ h1, p, .text-muted {
     border-top: 1px solid rgba(142, 115, 69, 0.3) !important;
 }
 
-#messages {
-    /* Use this direct link for testing */
-    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'), 
-                      linear-gradient(rgba(242, 208, 160, 0.9), rgba(148, 105, 32, 0.9));
-                      
-    
-    /* If you want the specific Freepik-style look, 
-       ensure the URL ends in .jpg or .png */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll; 
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 40px !important;
-}
 
 #h1 {
     color: #5b451f;
@@ -220,8 +186,15 @@ h1, p, .text-muted {
     margin-top: 10px;
 
 }
+/* Selected (active) */
+.list-unstyled li.active {
+  color: white;
+  background-color: #463519;
+  transform: translateY(2px);
+}
 
-.list-unstyled li:hover{
+/* Hover (only for non-active items) */
+.list-unstyled li:not(.active):hover {
   cursor: pointer;
   background-color: #d4b98a;
   color: #000;
@@ -229,6 +202,58 @@ h1, p, .text-muted {
   transform: translateY(1px);
 }
 
+/* Press-down feel */
+.list-unstyled li:active {
+  transform: translateY(2px);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-image:
+      linear-gradient(
+        rgba(0,0,0,0),
+        rgba(0,0,0,0)
+      ),
+      url("https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?cs=srgb&dl=pexels-pixabay-235985.jpg&fm=jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  color: #f2ebd6; /* parchment text color */
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+      circle at center,
+      rgba(0,0,0,0) 40%,
+      rgba(0,0,0,0.4) 100%
+  );
+  pointer-events: none;
+}
+
+
+
 .list-unstyled li{
   transition: background-color .15s ease, border-color .15s ease;
 }
+
+
+.list-unstyled li .dots{
+  
+}
+
+#rename-button{
+  border: 1px solid #8e7345 !important
+  
+}
+
+
+

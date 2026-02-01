@@ -5,7 +5,7 @@ export class Turn{
     }
 }
 
-class Chat{
+export class Chat{
     constructor(name){
         this.list = [];
         this.count = 0;
@@ -36,7 +36,6 @@ export class History{
 
     // loads history from file
     static load(){
-        return
         const raw = localStorage.getItem("chatHistory");
         if(!raw)return;
 
@@ -44,10 +43,11 @@ export class History{
 
         // Rehydrate classes
         History.chats = parsed.map(h => {
-            const chat = new Chat();
+            const chat = new Chat(h.name);
             chat.list = h.list.map(
                 t => new Turn(t.prompt, t.response)
             );
+            chat.count = chat.list.length;
             return chat;
         });
     }
@@ -85,28 +85,27 @@ export class History{
 
     // removes a chat of given name
     static removeChat(name){
-        if(!History.contains(name)){
-            console.log(`chat "${name};" does not exist, unable to remove`)
+        let idx = History.findIndex(name);
+        if(idx === -1){
+            console.log(`chat "${name}" does not exist, unable to remove`);
         }else{
-            console.log(`successfully removed chat "${name};"`);
+            History.chats.splice(idx, 1);
+            History.save();
+            console.log(`successfully removed chat "${name}"`);
         }
     }
 
     static renameChat(name, newName){
+        if(History.contains(newName)){
+            console.log(`chat "${newName}" already exists, cannot rename`);
+            return false;
+        }
+
         let chat = History.getObj(name);
-        if(chat == null)return false;
+        if(chat == null) return false;
 
         chat.rename(newName);
+        History.save();
         return true;
-    }
-
-    static toHTML(){
-        let html = [];
-        History.chats.forEach((chat)=>{
-            let name = chat.name;
-            console.log(name);
-            html.push(`<li>${name}</li>`);
-        })
-        return html.join("");
     }
 }

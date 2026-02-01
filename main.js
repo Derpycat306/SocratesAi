@@ -6,102 +6,169 @@ const sendButton = document.getElementById("send-btn");
 const messagesDisplay = document.getElementById("messages");
 const newChatButton = document.getElementById("newchat-btn");
 const chatList = document.getElementById("chat-list");
+
 // Load existing data or start a new chat
 History.load();
-let currentChat = null
+let currentChat = null;
 
-// Update the screen
+// ─── Update the message display ─────────────────────────────────────
 function updateUI() {
     if (!currentChat) return;
     if(!currentChat.list) return;
-    messagesDisplay.innerHTML = currentChat.list.map(turn => `
+
+    // Build the turn HTML
+    const turns = currentChat.list.map(turn => `
         <div class="mb-3">
             <p class="fw-bold mb-0">You: ${turn.prompt}</p>
             <p class="text-muted italic">Socrates: ${turn.response}</p>
         </div>
     `).join('');
+
+    // Render into the .txtbox div, preserving the sticky <img>
+    const txtbox = messagesDisplay.querySelector(".txtbox");
+    if (txtbox) {
+        txtbox.innerHTML = turns;
+    } else {
+        // Fallback: no .txtbox found, append directly
+        messagesDisplay.innerHTML = turns;
+    }
+
     messagesDisplay.scrollTop = messagesDisplay.scrollHeight;
 }
 
+// ─── Rebuild the sidebar chat list ─────────────────────────────────
+// ─── Rebuild the sidebar chat list ─────────────────────────────────
 function updateChats(){
-        let html = [];
-        History.chats.forEach((chat)=>{
-            let name = chat.name;
-            console.log(name);
-            html.push(`<li>${name}</li>`);
-        })
-        chatList.innerHTML = html.join("");
+    let html = [];
+    History.chats.forEach((chat) => {
+        let name = chat.name;
+        let escaped = name.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        html.push(`<li data-chat-name="${escaped}">${escaped}</li>`);
+    });
+    chatList.innerHTML = html.join("");
+
+    chatList.querySelectorAll("li").forEach(li => {
+        li.addEventListener("click", (event) => {
+            let name = li.dataset.chatName;
+            currentChat = History.getObj(name);
+            console.log("clicked chat:", name, "getObj returned:", currentChat, "list:", currentChat?.list);
+            chatList.querySelectorAll("li").forEach(l => { l.classList.remove("active"); });
+            li.classList.add("active");
+            updateUI();
+        });
+
+        li.addEventListener("mousedown", (event) => {
+            // middle click — delete chat
+            if (event.button === 1){
+                event.preventDefault();
+                let name = li.dataset.chatName;
+                History.removeChat(name);
+                if (currentChat && currentChat.name === name){
+                    currentChat = null;
+                    updateUI();
+                }
+                updateChats();
+            }
+        });
+
+        li.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            startInlineRename(li, li.dataset.chatName);
+        });
+
+        // Re-highlight the active chat after rebuild
+        if (currentChat && li.dataset.chatName === currentChat.name){
+            li.classList.add("active");
+        }
+    });
 }
 
-chatList.addEventListener('click', event => {
-    const item = event.target.closest('li');
-    if(!item || !item.contains(li))return;
+// ─── Inline Rename ──────────────────────────────────────────────────
+function startInlineRename(li, oldName) {
+    let committed = false;
 
-});
+    let input = document.createElement("input");
+    input.type = "text";
+    input.value = oldName;
+    input.className = "rename-input";
 
-// sendButton.addEventListener("click", async () => {
-//     const text = textInput.value.trim();
-//     if (!text) return;
+    li.innerHTML = "";
+    li.appendChild(input);
+    input.focus();
+    input.select();
 
-//     console.log("Asking Socrates...");
-    
-//     try {
-//         // Corrected order: (HistoryArray, NewText)
-//         const aiResponse = await askAI(currentChat.list, text);
-        
-//         const newTurn = new Turn(text, aiResponse);
-//         currentChat.add(newTurn);
+    function commit() {
+        if (committed) return;
+        committed = true;
 
-//         History.save();
-//         textInput.value = "";
-//         updateUI();
-//     } catch (error) {
-//         console.error("Failed to get response:", error);
-//     }
-// });
+        let newName = input.value.trim();
+        if (!newName || newName === oldName) {
+            updateChats(); // restore original
+            return;
+        }
 
-// Run UI update on load
+        if (History.renameChat(oldName, newName)) {
+            if (currentChat && currentChat.name === oldName) {
+                currentChat = History.getObj(newName);
+            }
+        }
+        updateChats();
+    }
 
-// Handle click
-// sendButton.addEventListener("click", async () => {
-//     const text = textInput.value.trim();
-//     if (!text) return;
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") { e.preventDefault(); commit(); }
+        if (e.key === "Escape") { committed = true; updateChats(); }
+    });
 
-//     console.log("Asking Socrates...");
-    
-//     // Get the AI response (using async if askAI is a network call)
-//     //const aiResponse = await askAI(text, currentChat);
-//     const aiResponse = await askAI(currentChat.list, text);
-    
-//     // Create a new Turn and add it to our currentChat
-//     const newTurn = new Turn(text, aiResponse);
-//     currentChat.add(newTurn);
+    input.addEventListener("blur", commit);
+}
 
-//     // Save the whole History to LocalStorage
-//     History.save();
-
-//     // Clear input and refresh the screen
-//     textInput.value = "";
-//     updateUI();
-// });
-
-// Initial render in case there's loaded history
-
+// ─── New Chat button ────────────────────────────────────────────────
 newChatButton.addEventListener("click", () => {
     if(!History.newChat("New Chat")){
         for(let i = 1; i < 999; i++){
             let string = `New Chat (${i})`;
-            if(History.newChat(string))break;
+            if(History.newChat(string)) break;
         }   
     }
     updateChats();
 });
 
+// Send button event listener
+sendButton.addEventListener("click", async () => {
+    const text = textInput.value.trim();
+    if (!text) return;
+    if (!currentChat) {
+        console.warn("No chat selected — pick or create one first.");
+        return;
+    }
+    let chat = History.getObj(currentChat);
+
+    console.log("Asking Socrates...");
+
+    try {
+        const aiResponse = await askAI(chat, text);
+        currentChat.add(text, aiResponse);
+        History.save();
+
+        textInput.value = "";
+        updateUI();
+    } catch (error) {
+        console.error("Failed to get response:", error);
+    }
+});
+
+// Also send on Enter key
+textInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        sendButton.click();
+    }
+});
+
+// Initial render
+updateChats();
+
 async function ask(){
     console.log("asking new prompt");
-    let text = String(textInput.value);
-    const response = await askAI(null, text);
-    console.log(response); 
 }
-
-sendButton.addEventListener("click", ask);

@@ -19,7 +19,7 @@ export async function askAI(chatHistory, newPrompt) {
 
     // add previous chat logs
     if(chatHistory){
-        for (const turn of chatHistory) {
+        for (const turn of chatHistory.list) {
             if (turn.prompt) {
             contents.push({
                 role: "user",
@@ -64,10 +64,6 @@ export async function askAI(chatHistory, newPrompt) {
     const responseText =
         data?.candidates?.[0]?.content?.parts?.[0]?.text ??
         "No response from AI.";
-
-    if(chatHistory){
-        chatHistory.push(newPrompt, responseText)
-    }
 
     return responseText;
 }
