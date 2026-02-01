@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(cors()); // allow front-end requests from any origin
 
 // Your Gemini API key and model
-const GEMINI_KEY = "AIzaSyAzRIIMJ_txbRK9a9sAShxQf4ajJx4tigU";
+const GEMINI_KEY = "AIzaSyDLMhU7rkJlMhzwJ2vg8GGabVeDBtFU2rA";
 const GEMINI_MODEL = "gemini-2.5-flash"; // or "models/gemini-flash-latest"
 const SYSTEM_PROMPT = `
 You are Socrates as portrayed in the early Platonic dialogues (elenctic dialogues).
