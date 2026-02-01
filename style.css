@@ -97,6 +97,7 @@
     padding: 0 25px;
     transition: all 0.3s ease;
     box-shadow: 2px 2px 0px #5d4a2a;
+    height: 10vh;
 }
 
 .btn-ancient:hover {
@@ -110,8 +111,11 @@
 
 /* Apply the gradient to the whole page */
 body {
-    background: linear-gradient(rgba(242, 235, 214, 0.9), rgba(212, 185, 138, 0.8)), 
+    /*background: linear-gradient(rgba(226, 206, 186, 0.9), rgba(201, 145, 73, 0.8)), 
                 url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+                */
+    background-image: url("./assets/ancientbackground.png");
+
     background-color: #f2ebd6; /* Fallback color */
     background-attachment: fixed; /* Keeps the texture still while you scroll */
 }
@@ -142,7 +146,7 @@ body {
 
 /* Improve text readability against the texture */
 h1, p, .text-muted {
-    color: #2c2416 !important;
+    color: #463519 !important;
 }
 
 /* Optional: Add a subtle border to separate the input area */
@@ -153,7 +157,8 @@ h1, p, .text-muted {
 #messages {
     /* Use this direct link for testing */
     background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'), 
-                      linear-gradient(rgba(98, 85, 46, 0.9), rgba(212, 185, 138, 0.9));
+                      linear-gradient(rgba(242, 208, 160, 0.9), rgba(148, 105, 32, 0.9));
+                      
     
     /* If you want the specific Freepik-style look, 
        ensure the URL ends in .jpg or .png */
@@ -173,4 +178,58 @@ h1, p, .text-muted {
     
 #chat-history {
     color: #2c2416;
+}
+
+/* Style for the input in its normal state */
+#user-input {
+    background-color:  #8e7345  !important; /* Deep charcoal/black */
+    color: #f2ebd6 !important;           /* Parchment-colored text */
+    border: 1px solid #8e7345 !important; /* Bronze/Stone border */
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+}
+
+/* Style for when you click/type (The Focus State) */
+#user-input:focus {
+    background-color:  #8a714c  !important; /* Keeps it dark */
+    color: #ffffff !important;           /* Bright white text for typing clarity */
+    border-color: #c2a371 !important;    /* Glows a bit brighter stone color */
+    outline: none !important;            /* Removes the blue browser ring */
+    box-shadow: 0 0 10px rgba(194, 163, 113, 0.3) !important; /* Subtle golden glow */
+}
+
+/* Fix the placeholder color so it's visible but muted */
+#user-input::placeholder {
+    color: rgb(80, 52, 13) !important;
+    font-style: italic;
+}
+
+
+
+.list-unstyled li{
+
+  background-color: #c2a371; /* Sandy/Stone color */
+    color: #2c2416;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    border: 2px solid #8e7345;
+    border-radius: 0; /* Sharp edges look more like stone tablets */
+    padding: 0 25px;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 0px #5d4a2a;
+    height: 5vh;
+    margin-top: 10px;
+
+}
+
+.list-unstyled li:hover{
+  cursor: pointer;
+  background-color: #d4b98a;
+  color: #000;
+  box-shadow: 1px 1px 0px #5d4a2a;
+  transform: translateY(1px);
+}
+
+.list-unstyled li{
+  transition: background-color .15s ease, border-color .15s ease;
 }

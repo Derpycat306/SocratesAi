@@ -7,6 +7,7 @@
     <!-- Fonts stylesheet -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
     rel="stylesheet">
+
     
     <!-- Personal stylesheet for custom styles-->
     <link rel="stylesheet" href="style.css">
@@ -21,7 +22,7 @@
     <div id="chat-history" class="container-fluid flex-grow-1 overflow-hidden">
         <div class="row h-100">
             <div class="col-md-3 border-end p-3 bg-white d-none d-md-flex flex-column">
-                <button class="btn-ancient btn-ancient-sidebar w-100 d-flex align-items-center justify-content-between">
+                <button class="btn-ancient btn-ancient-sidebar w-100 d-flex align-items-center justify-content-between" style="margin-top: 20px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
                     </svg>
@@ -31,12 +32,20 @@
                     </svg>
                 </button>
 
-                <p style="margin-top: 40px; border-bottom: 1px;"> History</p>
-                <ul class="mt-4 list-unstyled flex-grow-1" id="chat-history"></ul>
+                <h5 style="margin-top: 40px; border-bottom: 1px solid black; padding-bottom: 10px; font-family: 'Cinzel', sans-serif; margin-bottom: -20px; padding-left: 5px;"> 
+                    History
+                </h5>
+                <ul class="mt-4 list-unstyled flex-grow-1" id="chat-history">
+                    <li>hi this is me</li>
+                    <li>hi this is me</li>
+
+                </ul>
             </div>
 
             <main class="col-md-9 d-flex flex-column p-0 h-100">
                 <div id="messages" class="flex-grow-1 overflow-auto">
+                    <img src="https://cdn.britannica.com/69/75569-050-7AB67C4B/herm-Socrates-half-original-Greek-Capitoline-Museums.jpg" alt="Image of socratess">
+
                     </div>
 
                 <div class="p-3 border-top bg-white">
@@ -54,8 +63,8 @@
              </main>
         </div>
     </div>
+
  
-    <script src="ai.js"></script>
     <script type=module src="main.js"></script>
 </body>
 </html>

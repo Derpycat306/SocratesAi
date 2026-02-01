@@ -16,6 +16,10 @@ export class Chat{
         this.list.push(turn);
         this.count++;
     }
+
+    rename(name){
+        this.name = name;
+    }
 }
 
 export class History{
@@ -31,7 +35,7 @@ export class History{
     }
 
     // loads history from file
-    static load(filename = "history.json"){
+    static load(){
         const raw = localStorage.getItem("chatHistory");
         if(!raw)return;
 
@@ -49,12 +53,20 @@ export class History{
 
     // get the index of given chat. -1 if chat doesn't exist
     static findIndex(name){
-        return History.list.findIndex(chat => chat.name === name);
+        return History.chats.findIndex(chat => chat.name === name);
     }
 
     // checks if a given chat exists
     static contains(name){
         return History.findIndex(name) !== -1;
+    }
+
+    static getObj(name){
+        if(!History.contains(name)){
+            return null;
+        }
+
+        return chats[History.findIndex(name)];
     }
 
     // defines a new chat and adds it to the list
@@ -78,5 +90,13 @@ export class History{
         }else{
             console.log(`successfully removed chat "${name};"`);
         }
+    }
+
+    static renameChat(name, newName){
+        let chat = History.getObj(name);
+        if(chat == null)return false;
+
+        chat.rename(newName);
+        return true;
     }
 }
